@@ -1,4 +1,4 @@
-package com.rngank;
+package com.song.rngank;
 
 import com.facebook.react.ReactActivity;
 
