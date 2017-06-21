@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet
 } from 'react-native'
-
+import PropTypes from 'prop-types'
 import {
   valueBettween
 } from '../../utils/func'
@@ -98,8 +98,8 @@ class Toast extends Component {
 }
 
 Toast.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  type: React.PropTypes.oneOf(['success', 'info', 'error']).isRequired
+  text: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['success', 'info', 'error']).isRequired
 }
 
 export default Toast

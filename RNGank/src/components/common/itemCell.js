@@ -7,6 +7,7 @@ import {
 import MImage from './mImage'
 import StyleSheet from '../../utils/mStyleSheet'
 import Screen from '../../utils/screenUtils'
+import PropTypes from 'prop-types'
 const styles = StyleSheet.create({
   viewItem: {
     flexDirection: 'row',
@@ -86,8 +87,8 @@ class ItemCell extends Component {
 }
 
 ItemCell.propTypes = {
-  clickFunc: React.PropTypes.func,
-  data: React.PropTypes.object
+  clickFunc: PropTypes.func,
+  data: PropTypes.object
 }
 
 export default ItemCell

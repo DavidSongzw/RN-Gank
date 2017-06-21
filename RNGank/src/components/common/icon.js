@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   Text
 } from 'react-native'
-
+import PropTypes from 'prop-types'
 import StyleSheet from '../../utils/mStyleSheet'
 
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ class Icon extends Component {
 
 Icon.propTypes = {
   ...Text.propTypes,
-  icon: React.PropTypes.string
+  icon: PropTypes.string
 }
 
 export default Icon

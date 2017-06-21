@@ -10,7 +10,7 @@ import {
 import {
   getFullPath
 } from '../../utils/image'
-
+import PropTypes from 'prop-types'
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
@@ -185,7 +185,7 @@ class MImage extends Component {
 
 MImage.propTypes = {
   ...Image.propTypes,
-  clickFunc: React.PropTypes.func
+  clickFunc: PropTypes.func
 }
 
 export default MImage

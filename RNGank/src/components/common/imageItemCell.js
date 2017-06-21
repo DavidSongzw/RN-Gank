@@ -7,6 +7,7 @@ import {
 import MImage from './mImage'
 import StyleSheet from '../../utils/mStyleSheet'
 import Screen from '../../utils/screenUtils'
+import PropTypes from 'prop-types'
 const styles = StyleSheet.create({
   viewItem: {
     width: Screen.scaleSizeW(375),
@@ -68,8 +69,8 @@ class ImageItemCell extends Component {
 }
 
 ImageItemCell.propTypes = {
-  clickFunc: React.PropTypes.func,
-  data: React.PropTypes.object
+  clickFunc: PropTypes.func,
+  data: PropTypes.object
 }
 
 export default ImageItemCell
