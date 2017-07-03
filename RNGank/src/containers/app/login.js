@@ -21,7 +21,7 @@ class Login extends Component {
   }
   goNext () {
     const { dispatch } = this.props
-    dispatch(push(Pages.Search))
+    dispatch(push({routeName: Pages.Search}))
     // const { navigate, state } = this.props.navigation
     // console.log('navigate', this.props.navigation, navigate, state)
     // navigate('Search')

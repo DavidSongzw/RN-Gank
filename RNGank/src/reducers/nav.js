@@ -1,20 +1,12 @@
 import { NavigationActions } from 'react-navigation'
 
 import { AppNavigator } from '../navigator/appNav'
-const firstAction = AppNavigator.router.getActionForPathAndParams('Android')
-console.log('firstAction', firstAction)
+const firstAction = AppNavigator.router.getActionForPathAndParams('Home')
 const navState = AppNavigator.router.getStateForAction(firstAction)
-console.log('navState', navState)
-// import Immutable from 'immutable'
-// const secondAction = AppNavigator.router.getActionForPathAndParams('Login')
 const initialNavState = AppNavigator.router.getStateForAction(
   // firstAction,
   navState
 )
-// const initialNavState = AppNavigator.router.getStateForAction(
-//   secondAction,
-//   iNavState
-// )
 
 function nav (state = initialNavState, action) {
   let newState = state
@@ -53,20 +45,21 @@ function nav (state = initialNavState, action) {
     case 'TAB_HOME':
       newState = AppNavigator.router.getStateForAction(
         NavigationActions.reset({
-          index: 1,
+          index: 0,
           actions: [
-            NavigationActions.navigate({ routeName: 'Android' }),
-            NavigationActions.navigate({ routeName: 'iOS' })
+            NavigationActions.navigate({ routeName: 'Home' })
           ]
         }),
         newState
       )
+      newState.routes[0].index = 1
       break
     default:
       console.log('nav', newState)
       newState = AppNavigator.router.getStateForAction(action, newState)
       break
   }
+  console.log('newStateNav', newState)
   // Simply return the original `state` if `newState` is null or undefined.
   return newState || state
 }

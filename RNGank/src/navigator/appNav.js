@@ -19,10 +19,11 @@ export const TabScreenNavigator = TabNavigator(
     lazy: true,
     tabBarPosition: 'bottom',
     swipeEnabled: true, // 是否可以左右滑动切换tab
+    animationEnabled: true,
     tabBarOptions: {
       activeTintColor: 'black',
       inactiveTintColor: '#666',
-      showIcon: false,
+      showIcon: true,
       style: {
         backgroundColor: '#fff'
       },
@@ -40,15 +41,15 @@ export const TabScreenNavigator = TabNavigator(
 )
 export const AppNavigator = StackNavigator(
   {
-    Android: {
+    Home: {
       screen: TabScreenNavigator
     },
-    iOS: {
-      screen: TabScreenNavigator
-    },
-    Welfare: {
-      screen: TabScreenNavigator
-    },
+    // iOS: {
+    //   screen: TabScreenNavigator
+    // },
+    // Welfare: {
+    //   screen: TabScreenNavigator
+    // },
     ...PageRoutes
   },
   {

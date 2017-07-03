@@ -3,15 +3,18 @@ import { connect } from 'react-redux'
 import {
   View,
   FlatList,
-  Text
+  Text,
+  Image,
+  TouchableOpacity
 } from 'react-native'
 import * as AndroidAction from '../../actions/android'
 import Screen from '../../utils/screenUtils'
-// import Pages from '../../constants/pages'
+import homeIcon from '../../../assets/img/tabbar/home.png'
+import Pages from '../../constants/pages'
 import { callApi, pushWap } from '../../actions/app'
 import StyleSheet from '../../utils/mStyleSheet'
 import ItemCell from '../../components/common/itemCell'
-
+// import configureStore from '../../store/configureStore'
 const styles = StyleSheet.create({
   separator: {
     height: Screen.scaleSizeH(2),
@@ -24,6 +27,10 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     textAlign: 'center'
+  },
+  icon: {
+    width: 20,
+    height: 20
   }
 })
 
@@ -43,16 +50,83 @@ class Android extends Component {
     this.loadMore = this.loadMore.bind(this)
     this.renderFooter = this.renderFooter.bind(this)
     this.renderSeparator = this.renderSeparator.bind(this)
-  }
-  static navigationOptions = {
-    tabBarLabel: 'Android',
-    title: 'Android'
+    this.focusedIndex = 1
+    this.click = this.click.bind(this)
   }
 
+  static navigationOptions = ({navigation, screenProps}) => {
+    const {state, setParams, dispatch, goBack, navigate} = navigation
+    // const store = configureStore({}).getState()
+    // console.log('store', store)
+    return ({
+      title: 'Android',
+      tabBarLabel: 'Android',
+      tabBarIcon: (tabBar) => {
+        console.log('props', navigation, tabBar, new Android(), state, setParams, dispatch, goBack, navigate)
+        // if (focused) {
+        //   navigation.setParams({'top': 'top'})
+        // } else {
+        //
+        // }
+        // this.renderTabBar(focused, tintColor)
+        // this.focused = focused
+        // this.getFocused(focused)
+        if (tabBar.focused) {
+          // dispatch(push({routeName: Pages.Login}))
+          return (
+            <TouchableOpacity
+            >
+              <Image
+                source={homeIcon}
+                style={[styles.icon, {tintColor: 'red'}]} />
+            </TouchableOpacity>
+          )
+        } else {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                setParams({'top': 'top'})
+              }}
+            >
+              <Image
+                source={homeIcon}
+                style={[styles.icon, {tintColor: tabBar.tintColor}]} />
+            </TouchableOpacity>
+          )
+        }
+      }
+    })
+  }
+
+  // static navigationOptions = ({ navigation }) => {
+  //   const {state, setParams} = navigation
+  //   const isInfo = state.params.mode === 'info'
+  //   const {user} = state.params
+  //   return {
+  //     title: isInfo ? `${user}'s Contact Info` : `Chat with ${state.params.user}`,
+  //     headerRight: (
+  //       <Button
+  //         title={isInfo ? 'Done' : `${user}'s info`}
+  //         onPress={() => setParams({ mode: isInfo ? 'none' : 'info'})}
+  //     />
+  //   )
+  //   }
+  // }
+
+  componentWillMount () {
+    // this.renderNav()
+  }
   componentDidMount () {
+    // console.log('focusedDID', this.focused, this.focusedIndex)
+    // const { navigation } = this.props
+    // console.log('didMount', navigation)
     this.getAndroidData(this.page)
   }
 
+  click () {
+    const { dispatch } = this.props
+    dispatch({type: 'TAB_HOME'})
+  }
   getAndroidData (page, done) {
     const { getAndroidData } = this.props
     getAndroidData(page, done)
@@ -67,6 +141,7 @@ class Android extends Component {
       refreshing: true,
       loading: false
     })
+    console.log('onRefresh', 'aaaaaa')
     this.getAndroidData(this.page = 1, () => {
       this.setState({
         refreshing: false
@@ -82,6 +157,7 @@ class Android extends Component {
       refreshing: false,
       loading: true
     })
+    console.log('loadMore', 'aaaaaa')
     this.getAndroidData(this.page = this.page + 1, () => {
       this.setState({
         loading: false
@@ -122,6 +198,7 @@ class Android extends Component {
 
   render () {
     const { androidList } = this.props
+    console.log('focusedDID', this.focused, this.focusedIndex)
     console.log('androidData', androidList.toJS(), androidList.size)
     let listView
     if (androidList && androidList.size) {
@@ -141,6 +218,11 @@ class Android extends Component {
     }
     return (
       <View>
+        <Text
+          onPress={this.click}
+        >
+        加上了打飞机圣诞节疯狂送积分鲁大师
+        </Text>
         {listView}
       </View>
     )
