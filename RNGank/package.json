@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint": "standard --verbose | snazzy",
-    "fix": "standard --fix",
+    "fix": "standard --fix --verbose | snazzy",
     "android:release": "cd android && ./gradlew assembleRelease",
     "android:debug": "cd android && ./gradlew assembleDebug"
   },
