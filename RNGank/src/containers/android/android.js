@@ -10,7 +10,7 @@ import {
 import * as AndroidAction from '../../actions/android'
 import Screen from '../../utils/screenUtils'
 import homeIcon from '../../../assets/img/tabbar/home.png'
-import Pages from '../../constants/pages'
+// import Pages from '../../constants/pages'
 import { callApi, pushWap } from '../../actions/app'
 import StyleSheet from '../../utils/mStyleSheet'
 import ItemCell from '../../components/common/itemCell'
