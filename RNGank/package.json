@@ -2,10 +2,7 @@
   "name": "RNGank",
   "version": "0.0.1",
   "private": true,
-  "pre-commit": [
-    "lint",
-    "test"
-  ],
+
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
@@ -33,6 +30,9 @@
     "react-test-renderer": "16.0.0-alpha.6",
     "standard": "^10.0.2"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "jest": {
     "preset": "react-native"
   },
