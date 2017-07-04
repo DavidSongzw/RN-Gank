@@ -62,7 +62,8 @@ class Android extends Component {
       title: 'Android',
       tabBarLabel: 'Android',
       tabBarIcon: (tabBar) => {
-        console.log('props', navigation, tabBar, new Android(), state, setParams, dispatch, goBack, navigate)
+        // console.log('props', navigation, tabBar, new Android(), state, setParams, dispatch, goBack, navigate)
+        console.log('Androidprops', state, tabBar)
         // if (focused) {
         //   navigation.setParams({'top': 'top'})
         // } else {
@@ -90,7 +91,7 @@ class Android extends Component {
             >
               <Image
                 source={homeIcon}
-                style={[styles.icon, {tintColor: tabBar.tintColor}]} />
+                style={[styles.icon, {tintColor: 'blue'}]} />
             </TouchableOpacity>
           )
         }
