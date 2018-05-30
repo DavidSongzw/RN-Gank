@@ -6,7 +6,6 @@ import {
   View,
   Text
 } from 'react-native'
-
 import {
   getFullPath
 } from '../../utils/image'

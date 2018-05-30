@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
+  ScrollView,
   View,
   FlatList,
-  Text,
-  Image,
-  TouchableOpacity
+  Text
+  // Image,
+  // TouchableOpacity
 } from 'react-native'
+import CacheImage from '../../components/common/cacheImage'
 import * as AndroidAction from '../../actions/android'
 import Screen from '../../utils/screenUtils'
-import homeIcon from '../../../assets/img/tabbar/home.png'
+import {CachedImage} from 'react-native-img-cache'
+// import homeIcon from '../../../assets/img/tabbar/home.png'
 // import Pages from '../../constants/pages'
 import { callApi, pushWap } from '../../actions/app'
 import StyleSheet from '../../utils/mStyleSheet'
 import ItemCell from '../../components/common/itemCell'
+import ImageCache from '../../utils/imageCache'
+import DB from '../../utils/storage'
 // import configureStore from '../../store/configureStore'
 const styles = StyleSheet.create({
   separator: {
@@ -29,8 +34,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   icon: {
-    width: 20,
-    height: 20
+    width: 100,
+    height: 100
   }
 })
 
@@ -51,83 +56,22 @@ class Android extends Component {
     this.renderFooter = this.renderFooter.bind(this)
     this.renderSeparator = this.renderSeparator.bind(this)
     this.focusedIndex = 1
-    this.click = this.click.bind(this)
   }
 
   static navigationOptions = ({navigation, screenProps}) => {
-    const {state, setParams, dispatch, goBack, navigate} = navigation
-    // const store = configureStore({}).getState()
-    // console.log('store', store)
+    // const {state, setParams, dispatch, goBack, navigate} = navigation
     return ({
       title: 'Android',
-      tabBarLabel: 'Android',
-      tabBarIcon: (tabBar) => {
-        // console.log('props', navigation, tabBar, new Android(), state, setParams, dispatch, goBack, navigate)
-        console.log('Androidprops', state, tabBar)
-        // if (focused) {
-        //   navigation.setParams({'top': 'top'})
-        // } else {
-        //
-        // }
-        // this.renderTabBar(focused, tintColor)
-        // this.focused = focused
-        // this.getFocused(focused)
-        if (tabBar.focused) {
-          // dispatch(push({routeName: Pages.Login}))
-          return (
-            <TouchableOpacity
-            >
-              <Image
-                source={homeIcon}
-                style={[styles.icon, {tintColor: 'red'}]} />
-            </TouchableOpacity>
-          )
-        } else {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                setParams({'top': 'top'})
-              }}
-            >
-              <Image
-                source={homeIcon}
-                style={[styles.icon, {tintColor: 'blue'}]} />
-            </TouchableOpacity>
-          )
-        }
-      }
+      tabBarLabel: 'Android'
     })
   }
 
-  // static navigationOptions = ({ navigation }) => {
-  //   const {state, setParams} = navigation
-  //   const isInfo = state.params.mode === 'info'
-  //   const {user} = state.params
-  //   return {
-  //     title: isInfo ? `${user}'s Contact Info` : `Chat with ${state.params.user}`,
-  //     headerRight: (
-  //       <Button
-  //         title={isInfo ? 'Done' : `${user}'s info`}
-  //         onPress={() => setParams({ mode: isInfo ? 'none' : 'info'})}
-  //     />
-  //   )
-  //   }
-  // }
-
   componentWillMount () {
-    // this.renderNav()
   }
   componentDidMount () {
-    // console.log('focusedDID', this.focused, this.focusedIndex)
-    // const { navigation } = this.props
-    // console.log('didMount', navigation)
     this.getAndroidData(this.page)
   }
 
-  click () {
-    const { dispatch } = this.props
-    dispatch({type: 'TAB_HOME'})
-  }
   getAndroidData (page, done) {
     const { getAndroidData } = this.props
     getAndroidData(page, done)
@@ -193,13 +137,16 @@ class Android extends Component {
 
   goNext (index) {
     const { dispatch, androidList } = this.props
-    console.log('androidList', androidList.get(index))
+    console.log('androidList', androidList.get(index), ImageCache.clear())
     dispatch(pushWap(androidList.get(index)))
   }
 
   render () {
     const { androidList } = this.props
     console.log('focusedDID', this.focused, this.focusedIndex)
+    DB.get('cacheSize').then((response) => {
+      console.log('response', response)
+    })
     console.log('androidData', androidList.toJS(), androidList.size)
     let listView
     if (androidList && androidList.size) {
@@ -219,10 +166,44 @@ class Android extends Component {
     }
     return (
       <View>
-        <Text
-          onPress={this.click}
-        >
-        加上了打飞机圣诞节疯狂送积分鲁大师
+        <ScrollView
+          horizontal
+          >
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034gy1fh9utulf4kj20u011itbo.jpg'}}
+            />
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fh8ox6bmjlj20u00u0mz7.jpg'}}
+              />
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fh7hwi9lhzj20u011hqa9.jpg'}}
+                />
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fgllsthvu1j20u011in1p.jpg'}}
+                          />
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fgj7jho031j20u011itci.jpg'}}
+                                    />
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fgi3vd6irmj20u011i439.jpg'}}
+                                              />
+          <CachedImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fgepc1lpvfj20u011i0wv.jpg'}}
+                                              />
+          <CacheImage
+            style={styles.icon}
+            source={{uri: 'https://ws1.sinaimg.cn/large/610dc034ly1fgdmpxi7erj20qy0qyjtr.jpg'}}
+                                              />
+        </ScrollView>
+        <Text>
+           MB
         </Text>
         {listView}
       </View>
